@@ -7,7 +7,7 @@ window.onload = function() {
 
   paper.setup('myCanvas');
   
-  const AMT = 5000
+  const AMT = 800
   
   const arrPoints = []
   
@@ -21,10 +21,12 @@ window.onload = function() {
   // }
   
   // spiral
+  const DEGREE = Math.PI * 0.998888
+  const SPIRAL_SIZE = 1.0
   for (var i = 0; i < AMT; i++) {
     const p = new Point(
-      400 + rotX(i * 0.5) * (i * 0.3),
-      300 + rotY(i * 0.5) * (i * 0.3),
+      400 + rotX(i * DEGREE) * (i * SPIRAL_SIZE),
+      300 + rotY(i * DEGREE) * (i * SPIRAL_SIZE),
     )
     arrPoints.push(p)
   }
@@ -35,14 +37,18 @@ window.onload = function() {
   
   const SPEED = 2
   const RANGE = 10
-  const OFFSET = 1
+  const OFFSET = 0.04
   
 
   view.onFrame = function(event) {
+    // oscillating range
+    // const oscillation = (Math.sin(event.time * 2) + 1) / 2 // 0~1 sin wave oscillation
+    // const r = RANGE * (oscillation * 0.2 + 0.8)
+    const r = RANGE
     // On each frame, rotate the path by 3 degrees:
     for (var i = 0; i < path.segments.length; i++) {
-      path.segments[i].point.x = arrPoints[i].x + rotX(i * OFFSET + event.time * SPEED) * RANGE
-      path.segments[i].point.y = arrPoints[i].y + rotY(i * OFFSET + event.time * SPEED) * RANGE
+      path.segments[i].point.x = arrPoints[i].x + rotX(i * OFFSET + event.time * SPEED) * r
+      path.segments[i].point.y = arrPoints[i].y + rotY(i * OFFSET + event.time * SPEED) * r
     }
   }
 }
