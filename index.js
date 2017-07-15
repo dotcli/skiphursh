@@ -21,12 +21,12 @@ window.onload = function() {
   // }
   
   // spiral
-  const DEGREE = Math.PI * 0.998888
-  const SPIRAL_SIZE = 1.0
+  const DEGREE = Math.PI * 1 / 2
+  const SPIRAL_SIZE = 0.8
   for (var i = 0; i < AMT; i++) {
     const p = new Point(
-      400 + rotX(i * DEGREE) * (i * SPIRAL_SIZE),
-      300 + rotY(i * DEGREE) * (i * SPIRAL_SIZE),
+      400 + rotX(i * DEGREE + 0.2) * (i * SPIRAL_SIZE),
+      300 + rotY(i * DEGREE + 0.2) * (i * SPIRAL_SIZE),
     )
     arrPoints.push(p)
   }
@@ -36,8 +36,8 @@ window.onload = function() {
   path.strokeColor = 'black'
   
   const SPEED = 2
-  const RANGE = 10
-  const OFFSET = 0.04
+  const RANGE = 100
+  const OFFSET = 0.001
   
 
   view.onFrame = function(event) {
