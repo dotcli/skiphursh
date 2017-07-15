@@ -15,11 +15,7 @@ function rotY(angle) {
 window.onload = function() {
   paper.setup('myCanvas');
   
-  const path = new Path.Line()
-
-  path.add(new Point(400, 300))
-  
-  const AMT = 40
+  const AMT = 500
   
   const arrPoints = []
   
@@ -29,28 +25,21 @@ window.onload = function() {
       100 + Math.random() * 400,      
     )
     arrPoints.push(p)
-    path.add(p)
   }
   
+  const path = new Path(arrPoints)
+  path.closed = true
   path.strokeColor = 'black'
   
-  // console.log(path.segments);
-  // for (var i = 2; i < path.segments.length; i++) {
-  //   console.log(i);
-  //   console.log(path.segments[i].point)
-  // }
-  
   const SPEED = 2
-  const RANGE = 100
+  const RANGE = 10
   const OFFSET = 1
 
   view.onFrame = function(event) {
     // On each frame, rotate the path by 3 degrees:
-    // path.rotate(3);
-    for (var i = 2; i < path.segments.length - 1; i++) {
-      const pIndex = i - 2
-      path.segments[i].point.x = arrPoints[pIndex].x + rotX(i * OFFSET + event.time * SPEED) * RANGE
-      path.segments[i].point.y = arrPoints[pIndex].y + rotY(i * OFFSET + event.time * SPEED) * RANGE
+    for (var i = 0; i < path.segments.length; i++) {
+      path.segments[i].point.x = arrPoints[i].x + rotX(i * OFFSET + event.time * SPEED) * RANGE
+      path.segments[i].point.y = arrPoints[i].y + rotY(i * OFFSET + event.time * SPEED) * RANGE
     }
   }
 }
