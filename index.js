@@ -7,7 +7,7 @@ window.onload = function() {
 
   paper.setup('myCanvas');
   
-  const AMT = 800
+  const AMT = 700
   
   const arrPoints = []
   
@@ -21,8 +21,8 @@ window.onload = function() {
   // }
   
   // spiral
-  const DEGREE = Math.PI * 1 / 2
-  const SPIRAL_SIZE = 0.8
+  const DEGREE = Math.PI * (1 - 1 / 3)
+  const SPIRAL_SIZE = 0.04
   for (var i = 0; i < AMT; i++) {
     const p = new Point(
       400 + rotX(i * DEGREE + 0.2) * (i * SPIRAL_SIZE),
@@ -35,10 +35,9 @@ window.onload = function() {
   // path.closed = true
   path.strokeColor = 'black'
   
-  const SPEED = 2
-  const RANGE = 100
-  const OFFSET = 0.001
-  
+  const SPEED = 1.2
+  const RANGE = 200
+  const OFFSET = 0.008
 
   view.onFrame = function(event) {
     // oscillating range
