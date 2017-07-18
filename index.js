@@ -4,51 +4,35 @@ const paper = require('paper')
 
 paper.install(window);
 window.onload = function() {
-
   paper.setup('myCanvas');
-  
-  const AMT = 700
-  
-  const arrPoints = []
-  
-  // total random connection
-  // for (var i = 0; i < AMT; i++) {
-  //   const p = new Point(
-  //     100 + Math.random() * 600,
-  //     100 + Math.random() * 400,      
-  //   )
-  //   arrPoints.push(p)
-  // }
-  
-  // spiral
-  const DEGREE = Math.PI * (1 - 1 / 3)
-  const SPIRAL_SIZE = 0.04
-  for (var i = 0; i < AMT; i++) {
-    const p = new Point(
-      400 + rotX(i * DEGREE + 0.2) * (i * SPIRAL_SIZE),
-      300 + rotY(i * DEGREE + 0.2) * (i * SPIRAL_SIZE),
-    )
-    arrPoints.push(p)
-  }
-  
-  const path = new Path(arrPoints)
+  const path = new Path()
   // path.closed = true
   path.strokeColor = 'black'
   
-  const SPEED = 1.2
-  const RANGE = 200
-  const OFFSET = 0.008
-
+  const arrPoints = []
+  
+  const tool = new paper.Tool();
+  tool.onMouseDown = function(event) {
+      // Create a new path every time the mouse is clicked
+      path.add(event.point)
+      arrPoints.push(event.point)
+  }
+  tool.onMouseDrag = function(event) {
+      // Add a point to the path every time the mouse is dragged
+      path.add(event.point)
+      arrPoints.push(event.point)
+  }
+  tool.minDistance = 2;
+  
+  const SPEED = 5
+  const RANGE = 5
+  const OFFSET = 0.1
   view.onFrame = function(event) {
-    // oscillating range
-    // const oscillation = (Math.sin(event.time * 2) + 1) / 2 // 0~1 sin wave oscillation
-    // const r = RANGE * (oscillation * 0.2 + 0.8)
-    const r = RANGE
-    // On each frame, rotate the path by 3 degrees:
     for (var i = 0; i < path.segments.length; i++) {
-      path.segments[i].point.x = arrPoints[i].x + rotX(i * OFFSET + event.time * SPEED) * r
-      path.segments[i].point.y = arrPoints[i].y + rotY(i * OFFSET + event.time * SPEED) * r
+      path.segments[i].point.x = arrPoints[i].x + rotX(i * OFFSET + event.time * SPEED) * RANGE
+      path.segments[i].point.y = arrPoints[i].y + rotY(i * OFFSET + event.time * SPEED) * RANGE
     }
+
   }
 }
 
