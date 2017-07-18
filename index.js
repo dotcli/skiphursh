@@ -26,7 +26,7 @@ window.onload = function() {
   
   const SPEED = 5
   const RANGE = 5
-  const OFFSET = 0.1
+  const OFFSET = 3
   view.onFrame = function(event) {
     for (var i = 0; i < path.segments.length; i++) {
       path.segments[i].point.x = arrPoints[i].x + rotX(i * OFFSET + event.time * SPEED) * RANGE
